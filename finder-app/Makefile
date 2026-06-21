@@ -1,9 +1,17 @@
 # finder-app/Makefile
 # Default target: build writer for the native platform.
-# Cross-compile: make CROSS_COMPILE=aarch64-none-linux-gnu-
+# Cross-compile (manual):   make CROSS_COMPILE=aarch64-none-linux-gnu-
+# Cross-compile (Buildroot): CC provided externally; we honor it.
 
 CROSS_COMPILE ?=
-CC      = $(CROSS_COMPILE)gcc
+
+# Only define CC when the user (env or command line) has not.
+# Make builtin defaults have origin "default" and should be replaced with
+# our $(CROSS_COMPILE)gcc default.
+ifeq ($(origin CC),default)
+CC := $(CROSS_COMPILE)gcc
+endif
+
 CFLAGS  = -Wall -Wextra -g
 TARGET  = writer
 OBJS    = writer.o
