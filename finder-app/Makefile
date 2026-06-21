@@ -16,6 +16,8 @@ CFLAGS  = -Wall -Wextra -g
 TARGET  = writer
 OBJS    = writer.o
 
+all: $(TARGET)
+
 $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
 
